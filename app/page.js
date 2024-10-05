@@ -70,166 +70,174 @@ export default function HomePage() {
 						className="rounded-lg" // 모서리를 둥글게 하기 위한 클래스
 					></iframe>
 				</div>
-				<section
-					id="team-ranking"
-					className="relative h-80 w-[20%] overflow-hidden"
-				>
-					<div
-						className="absolute w-full flex flex-col items-center"
-						style={{
-							transform: `translateY(-${currentIndex * (100 / (teams.length + 2))}%)`,
-							transition: "transform 1s ease-in-out",
-						}}
+				<div className="relative h-100 w-[20%] overflow-hidden text-center">
+					<section
+						id="team-ranking"
+						className="relative h-80 w-[100%] overflow-hidden"
 					>
-						{/* 상단 팀 로고 */}
-						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-							{" "}
-							{/* 높이 설정 */}
-							<span className="text-xl font-semibold">
-								#{teams[(currentIndex + teams.length - 1) % teams.length].rank}
-							</span>
-							<Image
-								src={teams[(currentIndex + teams.length - 1) % teams.length].logo}
-								alt={`${
-									teams[(currentIndex + teams.length - 1) % teams.length].name
-								} logo`}
-								width={50}
-								height={50}
-								className="mx-auto" // 정 가운데 배치
-							/>
-							<span className="text-xl font-semibold">
-								{teams[(currentIndex + teams.length - 1) % teams.length].name}
-							</span>
-						</div>
-
-						{teams.map((team) => (
-							<div
-								key={team.name}
-								className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
-							>
+						<div
+							className="absolute w-full flex flex-col items-center"
+							style={{
+								transform: `translateY(-${currentIndex * (100 / (teams.length + 2))}%)`,
+								transition: "transform 1s ease-in-out",
+							}}
+						>
+							{/* 상단 팀 로고 */}
+							<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
 								{" "}
 								{/* 높이 설정 */}
-								<span className="text-xl font-semibold">#{team.rank}</span>
+								<span className="text-xl font-semibold">
+									#{teams[(currentIndex + teams.length - 1) % teams.length].rank}
+								</span>
 								<Image
-									src={team.logo}
-									alt={`${team.name} logo`}
+									src={teams[(currentIndex + teams.length - 1) % teams.length].logo}
+									alt={`${
+										teams[(currentIndex + teams.length - 1) % teams.length].name
+									} logo`}
 									width={50}
 									height={50}
 									className="mx-auto" // 정 가운데 배치
 								/>
-								<span className="text-xl font-semibold">{team.name}</span>
+								<span className="text-xl font-semibold">
+									{teams[(currentIndex + teams.length - 1) % teams.length].name}
+								</span>
 							</div>
-						))}
 
-						{/* 하단 팀 로고 */}
-						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-							{" "}
-							{/* 높이 설정 */}
-							<span className="text-xl font-semibold">
-								#{teams[(currentIndex + 1) % teams.length].rank}
-							</span>
-							<Image
-								src={teams[(currentIndex + 1) % teams.length].logo}
-								alt={`${teams[(currentIndex + 1) % teams.length].name} logo`}
-								width={50}
-								height={50}
-								className="mx-auto" // 정 가운데 배치
-							/>
-							<span className="text-xl font-semibold">
-								{teams[(currentIndex + 1) % teams.length].name}
-							</span>
+							{teams.map((team) => (
+								<div
+									key={team.name}
+									className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
+								>
+									{" "}
+									{/* 높이 설정 */}
+									<span className="text-xl font-semibold">#{team.rank}</span>
+									<Image
+										src={team.logo}
+										alt={`${team.name} logo`}
+										width={50}
+										height={50}
+										className="mx-auto" // 정 가운데 배치
+									/>
+									<span className="text-xl font-semibold">{team.name}</span>
+								</div>
+							))}
+
+							{/* 하단 팀 로고 */}
+							<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
+								{" "}
+								{/* 높이 설정 */}
+								<span className="text-xl font-semibold">
+									#{teams[(currentIndex + 1) % teams.length].rank}
+								</span>
+								<Image
+									src={teams[(currentIndex + 1) % teams.length].logo}
+									alt={`${teams[(currentIndex + 1) % teams.length].name} logo`}
+									width={50}
+									height={50}
+									className="mx-auto" // 정 가운데 배치
+								/>
+								<span className="text-xl font-semibold">
+									{teams[(currentIndex + 1) % teams.length].name}
+								</span>
+							</div>
 						</div>
-					</div>
-				</section>
-
+					</section>
+					<h2 className="text-xl font-bold text-white mb-4 mt-3">LCK Ranks</h2>
+				</div>
 				{/* 팬 팀 순위 롤링 UI */}
-				<section id="fan-ranking" className="relative h-80 w-[20%] overflow-hidden">
-					<div
-						className="absolute w-full flex flex-col items-center"
-						style={{
-							transform: `translateY(-${
-								fanIndex * (100 / (sortedFanTeams.length + 2))
-							}%)`,
-							transition: "transform 1s ease-in-out",
-						}}
+				<div className="relative h-100 w-[20%] overflow-hidden text-center">
+					<section
+						id="fan-ranking"
+						className="relative h-80 w-[100%] overflow-hidden"
 					>
-						{/* 상단 팬 팀 로고 */}
-						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-							{" "}
-							{/* 높이 설정 */}
-							<span className="text-xl font-semibold">
-								#
-								{
-									sortedFanTeams[
-										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
-									].frank
-								}
-							</span>
-							<Image
-								src={
-									sortedFanTeams[
-										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
-									].logo
-								}
-								alt={`${
-									sortedFanTeams[
-										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
-									].name
-								} logo`}
-								width={50}
-								height={50}
-								className="mx-auto" // 정 가운데 배치
-							/>
-							<span className="text-xl font-semibold">
-								{
-									sortedFanTeams[
-										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
-									].name
-								}
-							</span>
-						</div>
-
-						{sortedFanTeams.map((fanTeam) => (
-							<div
-								key={fanTeam.name}
-								className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
-							>
+						<div
+							className="absolute w-full flex flex-col items-center"
+							style={{
+								transform: `translateY(-${
+									fanIndex * (100 / (sortedFanTeams.length + 2))
+								}%)`,
+								transition: "transform 1s ease-in-out",
+							}}
+						>
+							{/* 상단 팬 팀 로고 */}
+							<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
 								{" "}
 								{/* 높이 설정 */}
-								<span className="text-xl font-semibold">#{fanTeam.frank}</span>
+								<span className="text-xl font-semibold">
+									#
+									{
+										sortedFanTeams[
+											(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+										].frank
+									}
+								</span>
 								<Image
-									src={fanTeam.logo}
-									alt={`${fanTeam.name} logo`}
+									src={
+										sortedFanTeams[
+											(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+										].logo
+									}
+									alt={`${
+										sortedFanTeams[
+											(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+										].name
+									} logo`}
 									width={50}
 									height={50}
 									className="mx-auto" // 정 가운데 배치
 								/>
-								<span className="text-xl font-semibold">{fanTeam.name}</span>
+								<span className="text-xl font-semibold">
+									{
+										sortedFanTeams[
+											(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+										].name
+									}
+								</span>
 							</div>
-						))}
 
-						{/* 하단 팬 팀 로고 */}
-						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-							{" "}
-							{/* 높이 설정 */}
-							<span className="text-xl font-semibold">
-								#{sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].frank}
-							</span>
-							<Image
-								src={sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].logo}
-								alt={`${
-									sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name
-								} logo`}
-								width={50}
-								height={50}
-								className="mx-auto" // 정 가운데 배치
-							/>
-							<span className="text-xl font-semibold">
-								{sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name}
-							</span>
+							{sortedFanTeams.map((fanTeam) => (
+								<div
+									key={fanTeam.name}
+									className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
+								>
+									{" "}
+									{/* 높이 설정 */}
+									<span className="text-xl font-semibold">#{fanTeam.frank}</span>
+									<Image
+										src={fanTeam.logo}
+										alt={`${fanTeam.name} logo`}
+										width={50}
+										height={50}
+										className="mx-auto" // 정 가운데 배치
+									/>
+									<span className="text-xl font-semibold">{fanTeam.name}</span>
+								</div>
+							))}
+
+							{/* 하단 팬 팀 로고 */}
+							<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
+								{" "}
+								{/* 높이 설정 */}
+								<span className="text-xl font-semibold">
+									#{sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].frank}
+								</span>
+								<Image
+									src={sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].logo}
+									alt={`${
+										sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name
+									} logo`}
+									width={50}
+									height={50}
+									className="mx-auto" // 정 가운데 배치
+								/>
+								<span className="text-xl font-semibold">
+									{sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name}
+								</span>
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
+					<h2 className="text-xl font-bold text-white mb-4 mt-3">Fan Ranks</h2>
+				</div>
 			</div>
 			{/* 전체 게시판 */}
 			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mb-10 mt-10">
