@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // 각 팀 로고 이미지 임포트
+import profile from "/public/profile.jpg";
 import teamLogo1 from "/public/team-logo1.png";
 import teamLogo2 from "/public/team-logo2.png";
 import teamLogo3 from "/public/team-logo3.png";
@@ -52,10 +53,50 @@ export default function HomePage() {
 	}, []);
 
 	return (
-		<div className="container mx-auto px-4 py-4 ">
-			<div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-center mb-10">
-				<Image src={ad} />
+		<div className="container mx-auto px-4 py-0 ">
+			<div className="bg-black bg-opacity-25 backdrop-filter backdrop-blur-lg p-8 rounded-full flex items-center h-[500px] mb-10 w-[100%] mx-auto gap-8">
+				<div className="w-[65%] flex flex-col space-y-4 relative ml-4">
+					<div className="text-center">
+						<span className="neon-multi text-8xl font-bold">GG Arena</span>
+						<span className="text-white text-4xl ml-4">응원합니다</span>
+					</div>
+					<h3 className="text-red-500 text-right mr-20 text-4xl leading-snug font-bold">
+						T1 Zeus <span className="text-white text-3xl"> 인터뷰</span>
+					</h3>
+					<p className="text-slate-200 text-7xl font-bold leading-loose text-center line-through">
+						롤이 제일 쉬웠어요 ..
+					</p>
+				</div>
+				<div className="h-full neon-red flex justify-center items-center">
+					<Image
+						src={profile}
+						className="h-full w-auto object-contain rounded-full"
+					/>
+				</div>
+
+				<style jsx>{`
+					.neon-red {
+						filter: drop-shadow(0 0 8px red) drop-shadow(0 0 16px red);
+					}
+					.neon-multi {
+						color: #00e6e6;
+						text-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6, 0 0 20px #1e90ff,
+							0 0 40px #8a2be2, 0 0 80px #8a2be2;
+						animation: glow 1.5s infinite alternate;
+					}
+					@keyframes glow {
+						from {
+							text-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 30px #1e90ff,
+								0 0 40px #8a2be2, 0 0 50px #8a2be2, 0 0 60px #8a2be2;
+						}
+						to {
+							text-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #1e90ff,
+								0 0 50px #8a2be2, 0 0 60px #8a2be2, 0 0 70px #8a2be2;
+						}
+					}
+				`}</style>
 			</div>
+
 			<div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-between">
 				{/* 팀 순위 롤링 UI */}
 				<div className="h-100 overflow-hidden w-[50%]">
@@ -239,6 +280,9 @@ export default function HomePage() {
 					<h2 className="text-xl font-bold text-white mb-4 mt-3">Fan Ranks</h2>
 				</div>
 			</div>
+			<div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-center mb-10 mt-10">
+				<Image src={ad} />
+			</div>
 			{/* 전체 게시판 */}
 			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mb-10 mt-10">
 				<section id="overall-board" className="mt-20 mb-20">
@@ -263,7 +307,7 @@ export default function HomePage() {
 					</div>
 				</section>
 			</div>
-			{/* 전체게시판 */}
+
 			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mb-10">
 				<section id="overall-board" className="mt-20 mb-20">
 					<h2 className="text-4xl font-bold text-white mb-4">Forum Board</h2>

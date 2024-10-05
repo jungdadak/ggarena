@@ -76,7 +76,7 @@ export default function RootLayout({ children }) {
 					</header>
 
 					{/* 메인 콘텐츠 */}
-					<main className="relative z-10 mt-[40vh]">{children}</main>
+					<main className="relative z-10 mt-[20vh]">{children}</main>
 
 					{/* 푸터바 */}
 					<footer className="relative z-10 bg-opacity-60 backdrop-blur-sm bg-gray-900 p-4 text-center text-white">
