@@ -232,98 +232,106 @@ export default function HomePage() {
 				</section>
 			</div>
 			{/* 전체 게시판 */}
-			<section id="overall-board" className="mt-20 mb-20">
-				<h2 className="text-4xl font-bold text-white mb-4">Overall Board</h2>
-				<p className="text-white">
-					Here is the content of the overall board with detailed information about
-					the matches, teams, etc.
-				</p>
-				<div className="bg-gray-800 p-4 rounded-lg mt-4">
-					<h3 className="text-2xl font-semibold text-white mb-2">Match Schedule</h3>
-					<br></br>
-					<ul className="text-white item-center">
-						<li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
-						<li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
-						<li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
-						<li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
-						<li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
-						<li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
-						<li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
-						<li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
-					</ul>
-				</div>
-			</section>
-			{/* 팀별 게시판 */}
+			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mb-10 mt-10">
+				<section id="overall-board" className="mt-20 mb-20">
+					<h2 className="text-4xl font-bold text-white mb-4">Overall Board</h2>
+					<p className="text-white">
+						Here is the content of the overall board with detailed information about
+						the matches, teams, etc.
+					</p>
+					<div className="bg-gray-800 p-4 rounded-lg mt-4">
+						<h3 className="text-2xl font-semibold text-white mb-2">Match Schedule</h3>
+						<br></br>
+						<ul className="text-white item-center">
+							<li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
+							<li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
+							<li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
+							<li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
+							<li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
+							<li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
+							<li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
+							<li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
+						</ul>
+					</div>
+				</section>
+			</div>
+			{/* 전체게시판 */}
+			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mb-10">
+				<section id="overall-board" className="mt-20 mb-20">
+					<h2 className="text-4xl font-bold text-white mb-4">Forum Board</h2>
+					<p className="text-white mb-6">
+						Here is the content of the overall board with detailed information about
+						the matches, teams, etc.
+					</p>
 
-			<section id="overall-board" className="mt-20 mb-20">
-				<h2 className="text-4xl font-bold text-white mb-4">Forum Board</h2>
-				<p className="text-white mb-6">
-					Here is the content of the overall board with detailed information about
-					the matches, teams, etc.
-				</p>
+					<div className="bg-gray-800 p-6 rounded-lg mt-4">
+						<h3 className="text-2xl font-semibold text-white mb-4">Recent Posts</h3>
 
-				<div className="bg-gray-800 p-6 rounded-lg mt-4">
-					<h3 className="text-2xl font-semibold text-white mb-4">Recent Posts</h3>
+						<div className="space-y-4">
+							{/* 게시물 1 */}
+							<div className="bg-gray-700 p-4 rounded-lg">
+								<h4 className="text-xl font-bold text-white">Post Title 1</h4>
+								<p className="text-white">
+									This is a brief description of the first post. It covers important
+									updates and information regarding the event.
+								</p>
+								<span className="text-gray-400 text-sm">
+									Posted by User1 on 2024-10-01
+								</span>
+							</div>
 
-					<div className="space-y-4">
-						{/* 게시물 1 */}
-						<div className="bg-gray-700 p-4 rounded-lg">
-							<h4 className="text-xl font-bold text-white">Post Title 1</h4>
-							<p className="text-white">
-								This is a brief description of the first post. It covers important
-								updates and information regarding the event.
-							</p>
-							<span className="text-gray-400 text-sm">
-								Posted by User1 on 2024-10-01
-							</span>
-						</div>
+							{/* 게시물 2 */}
+							<div className="bg-gray-700 p-4 rounded-lg">
+								<h4 className="text-xl font-bold text-white">Post Title 2</h4>
+								<p className="text-white">
+									This is a brief description of the second post. It includes details
+									about the match schedule and team performance.
+								</p>
+								<span className="text-gray-400 text-sm">
+									Posted by User2 on 2024-10-02
+								</span>
+							</div>
 
-						{/* 게시물 2 */}
-						<div className="bg-gray-700 p-4 rounded-lg">
-							<h4 className="text-xl font-bold text-white">Post Title 2</h4>
-							<p className="text-white">
-								This is a brief description of the second post. It includes details
-								about the match schedule and team performance.
-							</p>
-							<span className="text-gray-400 text-sm">
-								Posted by User2 on 2024-10-02
-							</span>
-						</div>
+							{/* 게시물 3 */}
+							<div className="bg-gray-700 p-4 rounded-lg">
+								<h4 className="text-xl font-bold text-white">Post Title 3</h4>
+								<p className="text-white">
+									This is a brief description of the third post. It highlights key
+									moments from previous matches.
+								</p>
+								<span className="text-gray-400 text-sm">
+									Posted by User3 on 2024-10-03
+								</span>
+							</div>
 
-						{/* 게시물 3 */}
-						<div className="bg-gray-700 p-4 rounded-lg">
-							<h4 className="text-xl font-bold text-white">Post Title 3</h4>
-							<p className="text-white">
-								This is a brief description of the third post. It highlights key moments
-								from previous matches.
-							</p>
-							<span className="text-gray-400 text-sm">
-								Posted by User3 on 2024-10-03
-							</span>
-						</div>
-
-						{/* 게시물 4 */}
-						<div className="bg-gray-700 p-4 rounded-lg">
-							<h4 className="text-xl font-bold text-white">Post Title 4</h4>
-							<p className="text-white">
-								This is a brief description of the fourth post. It contains thoughts and
-								opinions on team strategies.
-							</p>
-							<span className="text-gray-400 text-sm">
-								Posted by User4 on 2024-10-04
-							</span>
+							{/* 게시물 4 */}
+							<div className="bg-gray-700 p-4 rounded-lg">
+								<h4 className="text-xl font-bold text-white">Post Title 4</h4>
+								<p className="text-white">
+									This is a brief description of the fourth post. It contains thoughts
+									and opinions on team strategies.
+								</p>
+								<span className="text-gray-400 text-sm">
+									Posted by User4 on 2024-10-04
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
-
-			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg ">
+				</section>
+			</div>
+			{/* 팀별게시판임여기부터 */}
+			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg">
 				<section
 					id="team-boards"
-					className="grid grid-cols-2 gap-8 place-items-center "
+					className="grid grid-cols-2 gap-8 place-items-center"
 				>
-					{teams.map((team) => (
-						<div key={team.name} className="team-board">
+					{teams.map((team, index) => (
+						<div
+							key={team.name}
+							className={`team-board pb-4 ${
+								index < teams.length - 1 ? "border-b border-gray-700 mb-4" : ""
+							}`}
+						>
 							<h3 className="text-2xl font-semibold text-white mb-2">{team.name}</h3>
 							<Image
 								src={team.logo}
@@ -339,7 +347,6 @@ export default function HomePage() {
 							</a>
 						</div>
 					))}
-					{/* ... 추가적인 팀별 게시판 ... */}
 				</section>
 			</div>
 		</div>
