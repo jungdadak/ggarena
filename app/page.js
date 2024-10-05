@@ -1,101 +1,285 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+// 각 팀 로고 이미지 임포트
+import teamLogo1 from "/public/team-logo1.png";
+import teamLogo2 from "/public/team-logo2.png";
+import teamLogo3 from "/public/team-logo3.png";
+import teamLogo4 from "/public/team-logo4.png";
+import teamLogo5 from "/public/team-logo5.png";
+import teamLogo6 from "/public/team-logo6.png";
+import teamLogo7 from "/public/team-logo7.png";
+import teamLogo8 from "/public/team-logo8.png";
+import ad from "/public/ad.png";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+export default function HomePage() {
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [fanIndex, setFanIndex] = useState(0);
+
+	const teams = [
+		{ name: "T1", logo: teamLogo1, rank: 1 },
+		{ name: "Gen G", logo: teamLogo2, rank: 2 },
+		{ name: "DRX", logo: teamLogo3, rank: 3 },
+		{ name: "Damwon", logo: teamLogo4, rank: 4 },
+		{ name: "Rolster", logo: teamLogo5, rank: 5 },
+		{ name: "Team 6", logo: teamLogo6, rank: 6 },
+		{ name: "Hanhwa", logo: teamLogo7, rank: 7 },
+		{ name: "Team 8", logo: teamLogo8, rank: 8 },
+	];
+
+	// 팬 팀 배열 (무작위 섞기 및 frank 기준으로 정렬)
+	const fanTeams = [
+		{ name: "T1 fan", logo: teamLogo1, frank: 4 },
+		{ name: "Gen G fan", logo: teamLogo2, frank: 5 },
+		{ name: "DRX fan", logo: teamLogo3, frank: 6 },
+		{ name: "Damwon fan", logo: teamLogo4, frank: 1 },
+		{ name: "Rolster fan", logo: teamLogo5, frank: 8 },
+		{ name: "Team 6 fan", logo: teamLogo6, frank: 3 },
+		{ name: "Hanhwa fan", logo: teamLogo7, frank: 7 },
+		{ name: "Team 8 fan", logo: teamLogo8, frank: 2 },
+	];
+
+	// frank 기준으로 팬 팀 정렬
+	const sortedFanTeams = [...fanTeams].sort((a, b) => a.frank - b.frank);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentIndex((prevIndex) => (prevIndex + 1) % teams.length);
+			setFanIndex((prevIndex) => (prevIndex + 1) % sortedFanTeams.length);
+		}, 1000); // 3초마다 롤링
+		return () => clearInterval(interval);
+	}, []);
+
+	return (
+		<div className="container mx-auto px-4 py-4 ">
+			<div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-center mb-10">
+				<Image src={ad} />
+			</div>
+			<div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-between">
+				{/* 팀 순위 롤링 UI */}
+				<div className="h-80 overflow-hidden w-[50%]">
+					<iframe
+						width="100%"
+						height="100%"
+						src="https://www.youtube.com/embed/PojyOXq-QNI?autoplay=1&mute=1" // 자동재생 및 음소거 설정 추가
+						title="YouTube video player"
+						frameBorder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowFullScreen
+						className="rounded-lg" // 모서리를 둥글게 하기 위한 클래스
+					></iframe>
+				</div>
+				<section
+					id="team-ranking"
+					className="relative h-80 w-[20%] overflow-hidden"
+				>
+					<div
+						className="absolute w-full flex flex-col items-center"
+						style={{
+							transform: `translateY(-${currentIndex * (100 / (teams.length + 2))}%)`,
+							transition: "transform 1s ease-in-out",
+						}}
+					>
+						{/* 상단 팀 로고 */}
+						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
+							{" "}
+							{/* 높이 설정 */}
+							<span className="text-xl font-semibold">
+								#{teams[(currentIndex + teams.length - 1) % teams.length].rank}
+							</span>
+							<Image
+								src={teams[(currentIndex + teams.length - 1) % teams.length].logo}
+								alt={`${
+									teams[(currentIndex + teams.length - 1) % teams.length].name
+								} logo`}
+								width={50}
+								height={50}
+								className="mx-auto" // 정 가운데 배치
+							/>
+							<span className="text-xl font-semibold">
+								{teams[(currentIndex + teams.length - 1) % teams.length].name}
+							</span>
+						</div>
+
+						{teams.map((team) => (
+							<div
+								key={team.name}
+								className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
+							>
+								{" "}
+								{/* 높이 설정 */}
+								<span className="text-xl font-semibold">#{team.rank}</span>
+								<Image
+									src={team.logo}
+									alt={`${team.name} logo`}
+									width={50}
+									height={50}
+									className="mx-auto" // 정 가운데 배치
+								/>
+								<span className="text-xl font-semibold">{team.name}</span>
+							</div>
+						))}
+
+						{/* 하단 팀 로고 */}
+						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
+							{" "}
+							{/* 높이 설정 */}
+							<span className="text-xl font-semibold">
+								#{teams[(currentIndex + 1) % teams.length].rank}
+							</span>
+							<Image
+								src={teams[(currentIndex + 1) % teams.length].logo}
+								alt={`${teams[(currentIndex + 1) % teams.length].name} logo`}
+								width={50}
+								height={50}
+								className="mx-auto" // 정 가운데 배치
+							/>
+							<span className="text-xl font-semibold">
+								{teams[(currentIndex + 1) % teams.length].name}
+							</span>
+						</div>
+					</div>
+				</section>
+
+				{/* 팬 팀 순위 롤링 UI */}
+				<section id="fan-ranking" className="relative h-80 w-[20%] overflow-hidden">
+					<div
+						className="absolute w-full flex flex-col items-center"
+						style={{
+							transform: `translateY(-${
+								fanIndex * (100 / (sortedFanTeams.length + 2))
+							}%)`,
+							transition: "transform 1s ease-in-out",
+						}}
+					>
+						{/* 상단 팬 팀 로고 */}
+						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
+							{" "}
+							{/* 높이 설정 */}
+							<span className="text-xl font-semibold">
+								#
+								{
+									sortedFanTeams[
+										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+									].frank
+								}
+							</span>
+							<Image
+								src={
+									sortedFanTeams[
+										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+									].logo
+								}
+								alt={`${
+									sortedFanTeams[
+										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+									].name
+								} logo`}
+								width={50}
+								height={50}
+								className="mx-auto" // 정 가운데 배치
+							/>
+							<span className="text-xl font-semibold">
+								{
+									sortedFanTeams[
+										(fanIndex + sortedFanTeams.length - 1) % sortedFanTeams.length
+									].name
+								}
+							</span>
+						</div>
+
+						{sortedFanTeams.map((fanTeam) => (
+							<div
+								key={fanTeam.name}
+								className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
+							>
+								{" "}
+								{/* 높이 설정 */}
+								<span className="text-xl font-semibold">#{fanTeam.frank}</span>
+								<Image
+									src={fanTeam.logo}
+									alt={`${fanTeam.name} logo`}
+									width={50}
+									height={50}
+									className="mx-auto" // 정 가운데 배치
+								/>
+								<span className="text-xl font-semibold">{fanTeam.name}</span>
+							</div>
+						))}
+
+						{/* 하단 팬 팀 로고 */}
+						<div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
+							{" "}
+							{/* 높이 설정 */}
+							<span className="text-xl font-semibold">
+								#{sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].frank}
+							</span>
+							<Image
+								src={sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].logo}
+								alt={`${
+									sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name
+								} logo`}
+								width={50}
+								height={50}
+								className="mx-auto" // 정 가운데 배치
+							/>
+							<span className="text-xl font-semibold">
+								{sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name}
+							</span>
+						</div>
+					</div>
+				</section>
+			</div>
+			{/* 전체 게시판 */}
+			<section id="overall-board" className="mt-20 mb-20">
+				<h2 className="text-4xl font-bold text-white mb-4">Overall Board</h2>
+				<p className="text-white">
+					Here is the content of the overall board with detailed information about
+					the matches, teams, etc.
+				</p>
+				<div className="bg-gray-800 p-4 rounded-lg mt-4">
+					<h3 className="text-2xl font-semibold text-white mb-2">Match Schedule</h3>
+					<br></br>
+					<ul className="text-white item-center">
+						<li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
+						<li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
+						<li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
+						<li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
+						<li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
+						<li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
+						<li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
+						<li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
+					</ul>
+				</div>
+			</section>
+			{/* 팀별 게시판 */}
+
+			<div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg ">
+				<section
+					id="team-boards"
+					className="grid grid-cols-2 gap-8 place-items-center "
+				>
+					{teams.map((team) => (
+						<div key={team.name} className="team-board">
+							<h3 className="text-2xl font-semibold text-white mb-2">{team.name}</h3>
+							<Image
+								src={team.logo}
+								alt={`${team.name} Logo`}
+								width={100}
+								height={100}
+							/>
+							<a
+								href={`#${team.name.replace(" ", "-").toLowerCase()}`}
+								className="text-blue-400 underline"
+							>
+								Go to {team.name} Board
+							</a>
+						</div>
+					))}
+					{/* ... 추가적인 팀별 게시판 ... */}
+				</section>
+			</div>
+		</div>
+	);
 }
