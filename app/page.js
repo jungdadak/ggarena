@@ -54,23 +54,31 @@ export default function HomePage() {
 
 	return (
 		<div className="container mx-auto px-4 py-0 ">
-			<div className="bg-black bg-opacity-25 backdrop-filter backdrop-blur-lg p-8 rounded-full flex items-center h-[500px] mb-10 w-[100%] mx-auto gap-8">
-				<div className="w-[65%] flex flex-col space-y-4 relative ml-4">
+			<div className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-8 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[500px] mb-10 w-full mx-auto gap-8 border border-white">
+				<div className="w-full lg:w-[65%] flex flex-col space-y-4 relative lg:ml-4">
 					<div className="text-center">
-						<span className="neon-multi text-8xl font-bold">GG Arena</span>
-						<span className="text-white text-4xl ml-4">응원합니다</span>
+						<span className="neon-multi text-5xl md:text-6xl lg:text-8xl font-bold">
+							GG Arena
+						</span>
+						<span className="text-white text-2xl md:text-3xl lg:text-4xl ml-4">
+							응원합니다
+						</span>
 					</div>
-					<h3 className="text-red-500 text-right mr-20 text-4xl leading-snug font-bold">
-						T1 Zeus <span className="text-white text-3xl"> 인터뷰</span>
+					<h3 className="text-red-500 text-center lg:text-right lg:mr-20 text-2xl md:text-3xl lg:text-4xl leading-snug font-bold">
+						T1 Zeus{" "}
+						<span className="text-white text-xl md:text-2xl lg:text-3xl">
+							{" "}
+							인터뷰
+						</span>
 					</h3>
-					<p className="text-slate-200 text-7xl font-bold leading-loose text-center line-through">
+					<p className="text-slate-200 text-3xl md:text-5xl lg:text-7xl font-bold leading-loose text-center line-through">
 						롤이 제일 쉬웠어요 ..
 					</p>
 				</div>
-				<div className="h-full neon-red flex justify-center items-center">
+				<div className="h-auto lg:h-full flex justify-center items-center">
 					<Image
 						src={profile}
-						className="h-full w-auto object-contain rounded-full"
+						className="w-48 h-48 md:w-64 md:h-64 lg:w-auto lg:h-full object-contain rounded-full neon-image"
 					/>
 				</div>
 
@@ -92,6 +100,19 @@ export default function HomePage() {
 						to {
 							text-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #1e90ff,
 								0 0 50px #8a2be2, 0 0 60px #8a2be2, 0 0 70px #8a2be2;
+						}
+					}
+					.neon-image {
+						animation: neon-glow-image 1.5s infinite alternate;
+					}
+					@keyframes neon-glow-image {
+						from {
+							filter: drop-shadow(0 0 5px #00e6e6);
+							transform: scale(1);
+						}
+						to {
+							filter: drop-shadow(0 0 20px #00e6e6);
+							transform: scale(1.05);
 						}
 					}
 				`}</style>
