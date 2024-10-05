@@ -58,7 +58,7 @@ export default function HomePage() {
 			</div>
 			<div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-between">
 				{/* 팀 순위 롤링 UI */}
-				<div className="h-80 overflow-hidden w-[50%]">
+				<div className="h-100 overflow-hidden w-[50%]">
 					<iframe
 						width="100%"
 						height="100%"
