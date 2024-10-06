@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // 각 팀 로고 이미지 임포트
+import profile2 from "/public/profile2.jpg";
 import profile from "/public/profile.jpg";
 import teamLogo1 from "/public/team-logo1.png";
 import teamLogo2 from "/public/team-logo2.png";
@@ -54,31 +55,88 @@ export default function HomePage() {
 
 	return (
 		<div className="container mx-auto px-4 py-0 ">
-			<div className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-8 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[500px] mb-10 w-full mx-auto gap-8 border border-white">
-				<div className="w-full lg:w-[65%] flex flex-col space-y-4 relative lg:ml-4">
+			<div className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-white">
+				<div className="w-full lg:w-[60%] flex flex-col space-y-2 relative lg:ml-4">
 					<div className="text-center">
-						<span className="neon-multi text-5xl md:text-6xl lg:text-8xl font-bold">
+						<span className="neon-multi text-3xl md:text-4xl lg:text-5xl font-bold">
 							GG Arena
 						</span>
-						<span className="text-white text-2xl md:text-3xl lg:text-4xl ml-4">
+						<span className="text-white text-lg md:text-xl lg:text-2xl ml-4">
 							응원합니다
 						</span>
 					</div>
-					<h3 className="text-red-500 text-center lg:text-right lg:mr-20 text-2xl md:text-3xl lg:text-4xl leading-snug font-bold">
+					<h3 className="text-red-500 text-center lg:text-right lg:mr-20 text-lg md:text-xl lg:text-2xl leading-snug font-bold">
 						T1 Zeus{" "}
-						<span className="text-white text-xl md:text-2xl lg:text-3xl">
-							{" "}
-							인터뷰
-						</span>
+						<span className="text-white text-md md:text-lg lg:text-xl"> 인터뷰</span>
 					</h3>
-					<p className="text-slate-200 text-3xl md:text-5xl lg:text-7xl font-bold leading-loose text-center line-through">
+					<p className="text-slate-200 text-xl md:text-3xl lg:text-4xl font-bold leading-loose text-center line-through">
 						롤이 제일 쉬웠어요 ..
 					</p>
 				</div>
 				<div className="h-auto lg:h-full flex justify-center items-center">
 					<Image
 						src={profile}
-						className="w-48 h-48 md:w-64 md:h-64 lg:w-auto lg:h-full object-contain rounded-full neon-image"
+						className="w-28 h-28 md:w-40 md:h-40 lg:w-auto lg:h-full object-contain rounded-full neon-image"
+					/>
+				</div>
+
+				<style jsx>{`
+					.neon-red {
+						filter: drop-shadow(0 0 8px red) drop-shadow(0 0 16px red);
+					}
+					.neon-multi {
+						color: #00e6e6;
+						text-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6, 0 0 20px #1e90ff,
+							0 0 40px #8a2be2, 0 0 80px #8a2be2;
+						animation: glow 1.5s infinite alternate;
+					}
+					@keyframes glow {
+						from {
+							text-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 30px #1e90ff,
+								0 0 40px #8a2be2, 0 0 50px #8a2be2, 0 0 60px #8a2be2;
+						}
+						to {
+							text-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #1e90ff,
+								0 0 50px #8a2be2, 0 0 60px #8a2be2, 0 0 70px #8a2be2;
+						}
+					}
+					.neon-image {
+						animation: neon-glow-image 1.5s infinite alternate;
+					}
+					@keyframes neon-glow-image {
+						from {
+							filter: drop-shadow(0 0 5px #00e6e6);
+							transform: scale(1);
+						}
+						to {
+							filter: drop-shadow(0 0 20px #00e6e6);
+							transform: scale(1.05);
+						}
+					}
+				`}</style>
+			</div>
+			<div className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-white">
+				<div className="w-full lg:w-[60%] flex flex-col space-y-2 relative lg:ml-4">
+					<div className="text-center">
+						<span className="neon-multi text-3xl md:text-4xl lg:text-5xl font-bold">
+							GG Arena
+						</span>
+						<span className="text-white text-lg md:text-xl lg:text-2xl ml-4">
+							응원합니다
+						</span>
+					</div>
+					<h3 className="text-blue-500 text-center lg:text-right lg:mr-20 text-lg md:text-xl lg:text-2xl leading-snug font-bold">
+						DK Kingen{" "}
+						<span className="text-white text-md md:text-lg lg:text-xl"> 인터뷰</span>
+					</h3>
+					<p className="text-slate-200 text-xl md:text-3xl lg:text-4xl font-bold leading-loose text-center">
+						저희 경기도 보러와 주세요
+					</p>
+				</div>
+				<div className="h-auto lg:h-full flex justify-center items-center">
+					<Image
+						src={profile2}
+						className="w-28 h-28 md:w-40 md:h-40 lg:w-auto lg:h-full object-contain rounded-full neon-image"
 					/>
 				</div>
 
