@@ -1,7 +1,6 @@
 // app/api/posts/[team]/[id]/comments/route.js
-
-import dbConnect from '../../../../lib/dbConnect';
-import Post from '../../../../models/Post';
+import dbConnect from '../../../../../../../lib/dbConnect.js';
+import Post from '../../../../../../../models/Post.js';
 
 export async function POST(request, { params }) {
   const { team, id } = params;
