@@ -1,8 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-
-// 각 팀 로고 이미지 임포트
 import profile2 from '/public/profile2.jpg';
 import profile from '/public/profile.jpg';
 import teamLogo1 from '/public/team-logo1.png';
@@ -14,6 +12,15 @@ import teamLogo6 from '/public/team-logo6.png';
 import teamLogo7 from '/public/team-logo7.png';
 import teamLogo8 from '/public/team-logo8.png';
 import ad from '/public/ad.png';
+import { LCKRankRolling, FanRankRolling } from './components/rolling';
+
+// 추가: 평균 티어 이미지 (예시로 추가)
+import averageTier1 from '/public/averageTier1.png';
+import averageTier2 from '/public/averageTier2.png';
+import averageTier3 from '/public/averageTier3.png';
+import averageTier4 from '/public/averageTier4.png';
+import averageTier5 from '/public/averageTier5.png';
+// ... 필요한 평균 티어 이미지 추가
 
 export default function HomePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,16 +37,41 @@ export default function HomePage() {
     { name: 'Team 8', logo: teamLogo8, rank: 8 },
   ];
 
-  // 팬 팀 배열 (무작위 섞기 및 frank 기준으로 정렬)
+  // 팬 팀 배열 (frank 기준으로 정렬)
   const fanTeams = [
-    { name: 'T1 fan', logo: teamLogo1, frank: 4 },
-    { name: 'Gen G fan', logo: teamLogo2, frank: 5 },
-    { name: 'DRX fan', logo: teamLogo3, frank: 6 },
-    { name: 'Damwon fan', logo: teamLogo4, frank: 1 },
-    { name: 'Rolster fan', logo: teamLogo5, frank: 8 },
-    { name: 'Team 6 fan', logo: teamLogo6, frank: 3 },
-    { name: 'Hanhwa fan', logo: teamLogo7, frank: 7 },
-    { name: 'Team 8 fan', logo: teamLogo8, frank: 2 },
+    { name: 'T1 fan', logo: teamLogo1, frank: 4, averageTier: averageTier1 },
+    { name: 'Gen G fan', logo: teamLogo2, frank: 5, averageTier: averageTier2 },
+    { name: 'DRX fan', logo: teamLogo3, frank: 6, averageTier: averageTier4 },
+    {
+      name: 'Damwon fan',
+      logo: teamLogo4,
+      frank: 1,
+      averageTier: averageTier3,
+    },
+    {
+      name: 'Rolster fan',
+      logo: teamLogo5,
+      frank: 8,
+      averageTier: averageTier5,
+    },
+    {
+      name: 'Team 6 fan',
+      logo: teamLogo6,
+      frank: 3,
+      averageTier: averageTier4,
+    },
+    {
+      name: 'Hanhwa fan',
+      logo: teamLogo7,
+      frank: 7,
+      averageTier: averageTier2,
+    },
+    {
+      name: 'Team 8 fan',
+      logo: teamLogo8,
+      frank: 2,
+      averageTier: averageTier1,
+    },
   ];
 
   // frank 기준으로 팬 팀 정렬
@@ -51,476 +83,200 @@ export default function HomePage() {
       setFanIndex((prevIndex) => (prevIndex + 1) % sortedFanTeams.length);
     }, 1000); // 3초마다 롤링
     return () => clearInterval(interval);
-  }, []);
+  }, [teams.length, sortedFanTeams.length]);
+  const [teamIndex, setTeamIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % teams.length);
+      setFanIndex((prevIndex) => (prevIndex + 1) % sortedFanTeams.length);
+      setTeamIndex((prevIndex) => (prevIndex + 1) % teams.length);
+    }, 3000); // 3초마다 롤링
+    return () => clearInterval(interval);
+  }, [teams.length, sortedFanTeams.length]);
+
+  // 댓글 상태 관리
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+
+  const handleAddComment = () => {
+    if (newComment.trim() === '') return;
+    setComments([...comments, newComment.trim()]);
+    setNewComment('');
+  };
 
   return (
-    <div className="container mx-auto px-4 py-0 ">
-      <div className="p-0 itmes-center mt-10 align-center rounded-full m-auto bg-blue-700/100 px-5">
-        <div className="flex mb-10 justify-between p-4 text-xl ">
-          <a className="border-l border-r"> 전체 게시판</a>
-          <a className="border-l border-r">인기글</a>
-          <a className="border-l border-r">T1</a>
-          <a className="border-l border-r">Gen G</a>
-          <a className="border-l border-r">Dplus Kia</a>
-          <a className="border-l border-r">HLE</a>
-          <a className="border-l border-r">....</a>
-          <a className="border-l border-r">경기 토론방</a>
-          <a className="border-l border-r">분석글 게시판 </a>
-        </div>
-      </div>
-      <input
-        type="text"
-        defaultValue="아무거나 검색하세요~"
-        className="w-[30vw] p-4 border-2 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-2xl text-black"
-        placeholder="아무거나 검색하세요"
-      />
-      <div className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-red-500">
-        <div id="interview-container"></div>{' '}
-        <div className="w-full lg:w-[60%] flex flex-col space-y-2 relative lg:ml-4">
-          <div className="text-center">
-            <span className="neon-multi text-3xl md:text-4xl lg:text-5xl font-bold">
-              GG Arena
-            </span>
-            <span className="text-white text-lg md:text-xl lg:text-2xl ml-4">
-              응원합니다
-            </span>
-          </div>
-          <h3 className="text-red-500 text-center lg:text-right lg:mr-20 text-lg md:text-xl lg:text-2xl leading-snug font-bold">
-            T1 Zeus{' '}
-            <span className="text-white text-md md:text-lg lg:text-xl">
-              {' '}
-              인터뷰
-            </span>
-          </h3>
-          <p className="text-slate-200 text-xl md:text-3xl lg:text-4xl font-bold leading-loose text-center line-through">
-            롤이 제일 쉬웠어요 ..
-          </p>
-        </div>
-        <div className="h-auto lg:h-full flex justify-center items-center">
-          <Image
-            src={profile}
-            className="w-28 h-28 md:w-40 md:h-40 lg:w-auto lg:h-full object-contain rounded-full neon-image"
-          />
-        </div>
-        <style jsx>{`
-          .neon-red {
-            filter: drop-shadow(0 0 8px red) drop-shadow(0 0 16px red);
-          }
-          .neon-multi {
-            color: #00e6e6;
-            text-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6, 0 0 20px #1e90ff,
-              0 0 40px #8a2be2, 0 0 80px #8a2be2;
-            animation: glow 1.5s infinite alternate;
-          }
-          @keyframes glow {
-            from {
-              text-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 30px #1e90ff,
-                0 0 40px #8a2be2, 0 0 50px #8a2be2, 0 0 60px #8a2be2;
-            }
-            to {
-              text-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #1e90ff,
-                0 0 50px #8a2be2, 0 0 60px #8a2be2, 0 0 70px #8a2be2;
-            }
-          }
-          .neon-image {
-            animation: neon-glow-image 1.5s infinite alternate;
-          }
-          @keyframes neon-glow-image {
-            from {
-              filter: drop-shadow(0 0 5px #00e6e6);
-              transform: scale(1);
-            }
-            to {
-              filter: drop-shadow(0 0 20px #00e6e6);
-              transform: scale(1.05);
-            }
-          }
-        `}</style>
-      </div>
-      <div
-        id="rankings"
-        className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-red-500"
-      >
-        <div className="w-full lg:w-[60%] flex flex-col space-y-2 relative lg:ml-4">
-          <div className="text-center">
-            <span className="neon-multi text-3xl md:text-4xl lg:text-5xl font-bold">
-              GG Arena
-            </span>
-            <span className="text-white text-lg md:text-xl lg:text-2xl ml-4">
-              응원합니다
-            </span>
-          </div>
-          <h3 className="text-blue-500 text-center lg:text-right lg:mr-20 text-lg md:text-xl lg:text-2xl leading-snug font-bold">
-            DK Kingen{' '}
-            <span className="text-white text-md md:text-lg lg:text-xl">
-              {' '}
-              인터뷰
-            </span>
-          </h3>
-          <p className="text-slate-200 text-xl md:text-3xl lg:text-4xl font-bold leading-loose text-center">
-            저희 경기도 보러와 주세요
-          </p>
-        </div>
-        <div className="h-auto lg:h-full flex justify-center items-center">
-          <Image
-            src={profile2}
-            className="w-28 h-28 md:w-40 md:h-40 lg:w-auto lg:h-full object-contain rounded-full neon-image"
-          />
-        </div>
-
-        <style jsx>{`
-          .neon-red {
-            filter: drop-shadow(0 0 8px red) drop-shadow(0 0 16px red);
-          }
-          .neon-multi {
-            color: #00e6e6;
-            text-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6, 0 0 20px #1e90ff,
-              0 0 40px #8a2be2, 0 0 80px #8a2be2;
-            animation: glow 1.5s infinite alternate;
-          }
-          @keyframes glow {
-            from {
-              text-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 30px #1e90ff,
-                0 0 40px #8a2be2, 0 0 50px #8a2be2, 0 0 60px #8a2be2;
-            }
-            to {
-              text-shadow: 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #1e90ff,
-                0 0 50px #8a2be2, 0 0 60px #8a2be2, 0 0 70px #8a2be2;
-            }
-          }
-          .neon-image {
-            animation: neon-glow-image 1.5s infinite alternate;
-          }
-          @keyframes neon-glow-image {
-            from {
-              filter: drop-shadow(0 0 5px #00e6e6);
-              transform: scale(1);
-            }
-            to {
-              filter: drop-shadow(0 0 20px #00e6e6);
-              transform: scale(1.05);
-            }
-          }
-        `}</style>
-      </div>
-      <div id="rankings-team"></div>
-      <div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-between">
-        {/* 팀 순위 롤링 UI */}
-        <div className="h-100 overflow-hidden w-[50%]">
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/PojyOXq-QNI?autoplay=1&mute=1" // 자동재생 및 음소거 설정 추가
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="rounded-lg" // 모서리를 둥글게 하기 위한 클래스
-          ></iframe>
-        </div>
-        <div className="relative h-100 w-[20%] overflow-hidden text-center">
-          <section
-            id="team-ranking"
-            className="relative h-80 w-[100%] overflow-hidden"
-          >
-            <div
-              className="absolute w-full flex flex-col items-center"
-              style={{
-                transform: `translateY(-${
-                  currentIndex * (100 / (teams.length + 2))
-                }%)`,
-                transition: 'transform 1s ease-in-out',
-              }}
-            >
-              {/* 상단 팀 로고 */}
-              <div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-                {' '}
-                {/* 높이 설정 */}
-                <span className="text-xl font-semibold">
-                  #
-                  {teams[(currentIndex + teams.length - 1) % teams.length].rank}
-                </span>
-                <Image
-                  src={
-                    teams[(currentIndex + teams.length - 1) % teams.length].logo
-                  }
-                  alt={`${
-                    teams[(currentIndex + teams.length - 1) % teams.length].name
-                  } logo`}
-                  width={50}
-                  height={50}
-                  className="mx-auto" // 정 가운데 배치
-                />
-                <span className="text-xl font-semibold">
-                  {teams[(currentIndex + teams.length - 1) % teams.length].name}
-                </span>
-              </div>
-
-              {teams.map((team) => (
-                <div
-                  key={team.name}
-                  className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
+    <div className="container mx-auto px-4 py-0">
+      <div className="flex flex-col lg:flex-row items-start mt-10 space-y-6 lg:space-y-0 lg:space-x-6 mb-10">
+        {/* 네비게이션 바 및 검색 입력 필드 */}
+        <div className="w-full lg:w-2/3 bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg rounded-md p-4 flex flex-col items-center space-y-6">
+          {/* 내비게이션 바 */}
+          <div className="flex flex-col items-center w-full">
+            {/* 팀별 이름 링크 */}
+            <div className="flex flex-wrap justify-center gap-3 text-base lg:text-lg">
+              {teams.map((team, index) => (
+                <a
+                  key={index}
+                  href={`/${team.name.replace(/\s+/g, '-').toLowerCase()}`}
+                  className="px-4 py-2 border-l border-r border-red-500 text-white hover:bg-red-600 rounded-full transition duration-300 neon-link"
                 >
-                  {' '}
-                  {/* 높이 설정 */}
-                  <span className="text-xl font-semibold">#{team.rank}</span>
-                  <Image
-                    src={team.logo}
-                    alt={`${team.name} logo`}
-                    width={50}
-                    height={50}
-                    className="mx-auto" // 정 가운데 배치
-                  />
-                  <span className="text-xl font-semibold">{team.name}</span>
-                </div>
+                  {team.name}
+                </a>
               ))}
-
-              {/* 하단 팀 로고 */}
-              <div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-                {' '}
-                {/* 높이 설정 */}
-                <span className="text-xl font-semibold">
-                  #{teams[(currentIndex + 1) % teams.length].rank}
-                </span>
-                <Image
-                  src={teams[(currentIndex + 1) % teams.length].logo}
-                  alt={`${teams[(currentIndex + 1) % teams.length].name} logo`}
-                  width={50}
-                  height={50}
-                  className="mx-auto" // 정 가운데 배치
-                />
-                <span className="text-xl font-semibold">
-                  {teams[(currentIndex + 1) % teams.length].name}
-                </span>
-              </div>
             </div>
-          </section>
-          <h2 className="text-xl font-bold text-white mb-4 mt-3">LCK Ranks</h2>
-        </div>
-        {/* 팬 팀 순위 롤링 UI */}
-        <div className="relative h-100 w-[20%] overflow-hidden text-center">
-          <section
-            id="fan-ranking"
-            className="relative h-80 w-[100%] overflow-hidden"
-          >
-            <div
-              className="absolute w-full flex flex-col items-center"
-              style={{
-                transform: `translateY(-${
-                  fanIndex * (100 / (sortedFanTeams.length + 2))
-                }%)`,
-                transition: 'transform 1s ease-in-out',
-              }}
-            >
-              {/* 상단 팬 팀 로고 */}
-              <div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-                {' '}
-                {/* 높이 설정 */}
-                <span className="text-xl font-semibold">
-                  #
-                  {
-                    sortedFanTeams[
-                      (fanIndex + sortedFanTeams.length - 1) %
-                        sortedFanTeams.length
-                    ].frank
+            <div className="mt-4 flex flex-wrap justify-center gap-3 text-base lg:text-lg">
+              {['전체 게시판', '인기글', '경기 토론방'].map((item, index) => (
+                <a
+                  key={index}
+                  href={
+                    item === '전체 게시판'
+                      ? `/open`
+                      : `/open/${item.replace(/\s+/g, '-').toLowerCase()}`
                   }
-                </span>
-                <Image
-                  src={
-                    sortedFanTeams[
-                      (fanIndex + sortedFanTeams.length - 1) %
-                        sortedFanTeams.length
-                    ].logo
-                  }
-                  alt={`${
-                    sortedFanTeams[
-                      (fanIndex + sortedFanTeams.length - 1) %
-                        sortedFanTeams.length
-                    ].name
-                  } logo`}
-                  width={50}
-                  height={50}
-                  className="mx-auto" // 정 가운데 배치
-                />
-                <span className="text-xl font-semibold">
-                  {
-                    sortedFanTeams[
-                      (fanIndex + sortedFanTeams.length - 1) %
-                        sortedFanTeams.length
-                    ].name
-                  }
-                </span>
-              </div>
-
-              {sortedFanTeams.map((fanTeam) => (
-                <div
-                  key={fanTeam.name}
-                  className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20"
+                  className="px-4 py-2 border-l border-r border-red-500 text-white hover:bg-red-600 rounded-full transition duration-300 neon-link"
                 >
-                  {' '}
-                  {/* 높이 설정 */}
-                  <span className="text-xl font-semibold">
-                    #{fanTeam.frank}
+                  {item}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* 검색 입력 필드 */}
+          <div className="relative w-full mt-4">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              aria-label="Search"
+              className="w-full p-2 pl-10 pr-4 border-2 border-gray-600 rounded-full bg-gray-800 bg-opacity-70 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+              placeholder="아무거나 검색하세요"
+            />
+          </div>
+        </div>
+
+        {/* 선수 인터뷰 섹션 */}
+        <div className="w-full lg:w-1/3 flex flex-col space-y-4 justify-end">
+          {[
+            {
+              name: 'T1 Zeus',
+              message: '롤이 제일 쉬웠어요 ..',
+              image: profile,
+              color: 'text-red-500',
+              strikethrough: true,
+            },
+            {
+              name: 'DK Kingen',
+              message: '저희 경기도 보러와 주세요',
+              image: profile2,
+              color: 'text-blue-500',
+              strikethrough: false,
+            },
+          ].map((interview, index) => (
+            <div
+              key={index}
+              className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 rounded-xl flex flex-col lg:flex-row items-center h-auto lg:h-[125px] w-full gap-2 border border-red-500"
+            >
+              <div className="w-full lg:w-[60%] flex flex-col space-y-1 relative">
+                <div className="text-center lg:text-left">
+                  <span className="neon-multi text-xl md:text-2xl lg:text-3xl font-bold">
+                    GG Arena
                   </span>
-                  <Image
-                    src={fanTeam.logo}
-                    alt={`${fanTeam.name} logo`}
-                    width={50}
-                    height={50}
-                    className="mx-auto" // 정 가운데 배치
-                  />
-                  <span className="text-xl font-semibold">{fanTeam.name}</span>
+                  <span className="text-white text-sm md:text-base lg:text-xl ml-2">
+                    응원합니다
+                  </span>
                 </div>
-              ))}
-
-              {/* 하단 팬 팀 로고 */}
-              <div className="flex items-center justify-between w-full bg-gray-800 text-white p-4 rounded-lg mb-4 h-20">
-                {' '}
-                {/* 높이 설정 */}
-                <span className="text-xl font-semibold">
-                  #
-                  {sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].frank}
-                </span>
+                <h3
+                  className={`${interview.color} text-center lg:text-left lg:ml-2 text-sm md:text-base lg:text-xl leading-snug font-bold`}
+                >
+                  {interview.name}
+                  <span className="text-white text-sm md:text-base lg:text-lg">
+                    인터뷰
+                  </span>
+                </h3>
+                <p
+                  className={`text-slate-200 text-lg md:text-1.5xl lg:text-2xl font-bold leading-loose text-center lg:text-left ${
+                    interview.strikethrough ? 'line-through' : ''
+                  }`}
+                >
+                  {interview.message}
+                </p>
+              </div>
+              <div className="h-auto lg:h-full flex justify-center items-center ml-2">
                 <Image
-                  src={
-                    sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].logo
-                  }
-                  alt={`${
-                    sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name
-                  } logo`}
-                  width={50}
-                  height={50}
-                  className="mx-auto" // 정 가운데 배치
+                  src={interview.image}
+                  alt={`${interview.name} Profile`}
+                  width={80}
+                  height={80}
+                  className="object-contain rounded-full neon-image"
                 />
-                <span className="text-xl font-semibold">
-                  {sortedFanTeams[(fanIndex + 1) % sortedFanTeams.length].name}
-                </span>
               </div>
             </div>
-          </section>
-          <h2 className="text-xl font-bold text-white mb-4 mt-3">Fan Ranks</h2>
+          ))}
         </div>
       </div>
+      <div className="container mx-auto px-4 py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-11 gap-2 mt-10">
+          {/* Hilight Videos + 댓글 섹션 */}
+          <div className="lg:col-span-5 space-y-4">
+            <h2 className="text-xl font-bold text-white">Hilight Videos</h2>
+            <div className="relative h-[450px] bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg rounded-md p-4">
+              <iframe
+                width="100%"
+                height="70%"
+                src="https://www.youtube.com/embed/PojyOXq-QNI?autoplay=1&mute=1"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="rounded-lg mb-2"
+              ></iframe>
+
+              {/* 댓글 섹션 */}
+              <div className="bg-black bg-opacity-30 p-3 rounded-md mt-4">
+                <h3 className="text-lg font-bold text-white mb-2">댓글</h3>
+                <div className="space-y-2 max-h-28 overflow-y-auto">
+                  {comments.map((comment, index) => (
+                    <div key={index} className="p-2 bg-gray-700 rounded-md">
+                      <p className="text-white text-sm">{comment}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-2 flex">
+                  <input
+                    type="text"
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    className="flex-1 p-2 rounded-l-md bg-gray-800 text-white text-sm placeholder-gray-500 focus:outline-none"
+                    placeholder="댓글을 입력하세요..."
+                  />
+                  <button
+                    onClick={handleAddComment}
+                    className="px-3 py-1 bg-red-600 text-white rounded-r-md text-sm hover:bg-red-700 transition duration-300"
+                  >
+                    달기
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-3">
+            <h2 className="text-xl font-bold text-white">LCK Rank</h2>
+            <LCKRankRolling teams={teams} />
+          </div>
+
+          <div className="lg:col-span-3">
+            <h2 className="text-xl font-bold text-white">Fan Rank</h2>
+            <FanRankRolling fanTeams={sortedFanTeams} />
+          </div>
+        </div>
+      </div>
+      {/* 광고 섹션 */}
       <div className="bg-black bg-opacity-30 backdrop-filter backdrop-blur-lg p-8 rounded-lg flex justify-center mb-10 mt-10">
-        <Image src={ad} id="schedule" />
+        <Image src={ad} alt="Advertisement" />
       </div>
-      {/* 전체 게시판 */}
-      <div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mb-10 mt-10">
-        <section className="mt-20 mb-20">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            {' '}
-            Schedule Board
-          </h2>
-          <p className="text-white">
-            Here is the content of the overall board with detailed information
-            about the matches, teams, etc.
-          </p>
-          <div className="flex justify-between text-center">
-            {' '}
-            <div className="bg-gray-800 p-4 rounded-lg mt-4 w-[48%]">
-              <h3 className="text-2xl font-semibold text-white mb-2">
-                LCK schedule
-              </h3>
-              <br></br>
-              <ul className="text-white item-center">
-                <li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
-                <li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
-                <li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
-                <li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
-                <li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
-                <li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
-                <li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
-                <li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
-              </ul>
-            </div>{' '}
-            <div className="bg-gray-800 p-4 rounded-lg mt-4 w-[48%]">
-              <h3 className="text-2xl font-semibold text-white mb-2">
-                Fan-match schedule
-              </h3>
-              <br></br>
-              <ul className="text-white item-center">
-                <li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
-                <li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
-                <li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
-                <li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
-                <li>Match 1: Team 1 vs Team 2 - Date: 2024-10-10</li>
-                <li>Match 2: Team 3 vs Team 4 - Date: 2024-10-12</li>
-                <li>Match 3: Team 5 vs Team 6 - Date: 2024-10-15</li>
-                <li>Match 4: Team 7 vs Team 8 - Date: 2024-10-20</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div id="overall-board"></div>
-      <div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mb-10">
-        <section className="mt-20 mb-20">
-          <h2 className="text-4xl font-bold text-white mb-4">Forum Board</h2>
-          <p className="text-white mb-6">
-            Here is the content of the overall board with detailed information
-            about the matches, teams, etc.
-          </p>
-
-          <div className="bg-gray-800 p-6 rounded-lg mt-4">
-            <h3 className="text-2xl font-semibold text-white mb-4">
-              Recent Posts
-            </h3>
-
-            <div className="space-y-4">
-              {/* 게시물 1 */}
-              <div className="bg-gray-700 p-4 rounded-lg">
-                <h4 className="text-xl font-bold text-white">Post Title 1</h4>
-                <p className="text-white">
-                  This is a brief description of the first post. It covers
-                  important updates and information regarding the event.
-                </p>
-                <span className="text-gray-400 text-sm">
-                  Posted by User1 on 2024-10-01
-                </span>
-              </div>
-
-              {/* 게시물 2 */}
-              <div className="bg-gray-700 p-4 rounded-lg">
-                <h4 className="text-xl font-bold text-white">Post Title 2</h4>
-                <p className="text-white">
-                  This is a brief description of the second post. It includes
-                  details about the match schedule and team performance.
-                </p>
-                <span className="text-gray-400 text-sm">
-                  Posted by User2 on 2024-10-02
-                </span>
-              </div>
-
-              {/* 게시물 3 */}
-              <div className="bg-gray-700 p-4 rounded-lg">
-                <h4 className="text-xl font-bold text-white">Post Title 3</h4>
-                <p className="text-white">
-                  This is a brief description of the third post. It highlights
-                  key moments from previous matches.
-                </p>
-                <span className="text-gray-400 text-sm">
-                  Posted by User3 on 2024-10-03
-                </span>
-              </div>
-
-              {/* 게시물 4 */}
-              <div className="bg-gray-700 p-4 rounded-lg">
-                <h4 className="text-xl font-bold text-white">Post Title 4</h4>
-                <p className="text-white">
-                  This is a brief description of the fourth post. It contains
-                  thoughts and opinions on team strategies.
-                </p>
-                <span className="text-gray-400 text-sm">
-                  Posted by User4 on 2024-10-04
-                </span>
-              </div>
-              <div id="team-boards"></div>
-            </div>
-          </div>
-        </section>
-      </div>
-      {/* 팀별게시판임여기부터 */}
-      <div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg">
+      <div className="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg p-8 rounded-lg mt-10">
         <section className="grid grid-cols-2 gap-8 place-items-center">
           {teams.map((team, index) => (
             <div
@@ -532,14 +288,17 @@ export default function HomePage() {
               <h3 className="text-2xl font-semibold text-white mb-2">
                 {team.name}
               </h3>
-              <Image
-                src={team.logo}
-                alt={`${team.name} Logo`}
-                width={100}
-                height={100}
-              />
+              <a href={`/${team.name.replace(/\s+/g, '-').toLowerCase()}`}>
+                <Image
+                  src={team.logo}
+                  alt={`${team.name} Logo`}
+                  width={100}
+                  height={100}
+                  className="mb-4 neon-image cursor-pointer"
+                />
+              </a>
               <a
-                href={`#${team.name.replace(' ', '-').toLowerCase()}`}
+                href={`/${team.name.replace(/\s+/g, '-').toLowerCase()}`}
                 className="text-blue-400 underline"
               >
                 Go to {team.name} Board
@@ -551,3 +310,46 @@ export default function HomePage() {
     </div>
   );
 }
+
+// 게시판 카드 컴포넌트 (필요 시 제거)
+const BoardCard = ({ title, description }) => (
+  <div className="board-card flex flex-col items-center p-4 rounded-md">
+    <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
+    <p className="text-gray-300 text-center">{description}</p>
+  </div>
+);
+
+// 팬덤 게시판 카드 컴포넌트 (필요 시 제거)
+const FandomBoardCard = ({ team }) => (
+  <a
+    href={`/${team.name.replace(/\s+/g, '-').toLowerCase()}`}
+    className="fandom-board-card flex flex-col items-center p-4 rounded-md"
+  >
+    <Image
+      src={team.logo}
+      alt={`${team.name} Logo`}
+      width={100}
+      height={100}
+      className="mb-4"
+    />
+    <h3 className="text-lg font-bold">{team.name} 팬덤</h3>
+  </a>
+);
+
+// 아이콘 컴포넌트 예시 (필요에 따라 설치하거나 커스텀)
+const MagnifyingGlassIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
+  </svg>
+);
