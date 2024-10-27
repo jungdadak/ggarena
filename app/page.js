@@ -55,7 +55,27 @@ export default function HomePage() {
 
   return (
     <div className="container mx-auto px-4 py-0 ">
-      <div className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-white">
+      <div className="p-0 itmes-center mt-10 align-center rounded-full m-auto bg-blue-700/100 px-5">
+        <div className="flex mb-10 justify-between p-4 text-xl ">
+          <a className="border-l border-r"> 전체 게시판</a>
+          <a className="border-l border-r">인기글</a>
+          <a className="border-l border-r">T1</a>
+          <a className="border-l border-r">Gen G</a>
+          <a className="border-l border-r">Dplus Kia</a>
+          <a className="border-l border-r">HLE</a>
+          <a className="border-l border-r">....</a>
+          <a className="border-l border-r">경기 토론방</a>
+          <a className="border-l border-r">분석글 게시판 </a>
+        </div>
+      </div>
+      <input
+        type="text"
+        defaultValue="아무거나 검색하세요~"
+        className="w-[30vw] p-4 border-2 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-2xl text-black"
+        placeholder="아무거나 검색하세요"
+      />
+      <div className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-red-500">
+        <div id="interview-container"></div>{' '}
         <div className="w-full lg:w-[60%] flex flex-col space-y-2 relative lg:ml-4">
           <div className="text-center">
             <span className="neon-multi text-3xl md:text-4xl lg:text-5xl font-bold">
@@ -82,7 +102,6 @@ export default function HomePage() {
             className="w-28 h-28 md:w-40 md:h-40 lg:w-auto lg:h-full object-contain rounded-full neon-image"
           />
         </div>
-
         <style jsx>{`
           .neon-red {
             filter: drop-shadow(0 0 8px red) drop-shadow(0 0 16px red);
@@ -120,7 +139,7 @@ export default function HomePage() {
       </div>
       <div
         id="rankings"
-        className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-white"
+        className="bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg p-4 lg:p-4 rounded-full flex flex-col lg:flex-row items-center h-auto lg:h-[250px] mb-4 w-[90%] lg:w-[60%] ml-auto gap-4 border border-red-500"
       >
         <div className="w-full lg:w-[60%] flex flex-col space-y-2 relative lg:ml-4">
           <div className="text-center">

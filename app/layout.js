@@ -21,9 +21,11 @@ export default function RootLayout({ children }) {
         />{' '}
         {/* 설명 추가 */}
       </Head>
-      <body>
+      <body className="bg-neutral-900">
         <div className="relative p-0">
           {/* 배경 이미지들 */}
+          {/* 필요 시 배경 이미지 사용 */}
+          {/* 
           <div className="fixed top-0 left-0 w-full h-full z-0 grid grid-cols-2 grid-rows-2">
             <Image
               src={bg1}
@@ -53,13 +55,14 @@ export default function RootLayout({ children }) {
               height={300}
               className="object-cover w-full h-full"
             />
-          </div>
+          </div> 
+          */}
 
           {/* 네비게이션 바 컴포넌트 추가 */}
           <Navbar />
 
           {/* 메인 콘텐츠 */}
-          <main className="relative z-10 mt-[20vh]">{children}</main>
+          <main className="relative z-10 mt-[20vh] text-white">{children}</main>
 
           {/* 푸터바 */}
           <footer className="relative z-10 bg-opacity-60 backdrop-blur-sm bg-gray-900 p-4 text-center text-white">
